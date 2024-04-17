@@ -22,7 +22,7 @@ steps:
     goals: 'package'
 - task: CopyFiles@2
   inputs:
-    contents: '/home/vsts/work/1/s/webapp/target/*.war'
+    contents: '$(Build.SourcesDirectory)/webapp/target/*.war'
     targetFolder: '$(Build.ArtifactStagingDirectory)'
 - task: PublishBuildArtifacts@1
   inputs:
