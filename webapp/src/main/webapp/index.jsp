@@ -4,3 +4,4 @@
 <h3> Sreedhar automate build and deploy.Thankyou</h3>
 <h4> Sreedhar deployed through deployment groups </h4>
 <h5> Adding new line for auto build pipeline trigger </h5>
+<h6> Createtd automated build and deploy for the pipeline</h6>
