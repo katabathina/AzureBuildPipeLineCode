@@ -1,30 +1,23 @@
-# Maven
-# Build your Java project and run tests with Apache Maven.
-# Add steps that analyze code, save build artifacts, deploy, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/java
-
-trigger:
-- master
-
-pool:
-  vmImage: ubuntu-latest
-
-steps:
-- task: Maven@3
-  inputs:
-    mavenPomFile: 'pom.xml'
-    mavenOptions: '-Xmx3072m'
-    javaHomeOption: 'JDKVersion'
-    jdkVersionOption: '1.8'
-    jdkArchitectureOption: 'x64'
-    publishJUnitResults: true
-    testResultsFiles: '**/surefire-reports/TEST-*.xml'
-    goals: 'package'
-- task: CopyFiles@2
-  inputs:
-    contents: '$(Build.SourcesDirectory)/webapp/target/*.war'
-    targetFolder: '$(Build.ArtifactStagingDirectory)'
-- task: PublishBuildArtifacts@1
-  inputs:
-    pathToPublish: '$(Build.ArtifactStagingDirectory)'
-    artifactName: MyBuildOutputs
+- job: 
+  pool:
+    name: MyPool  # please change the name 'MyPool' with name of a Agent Pool used in your organization
+  steps:
+  - pwsh: |
+      $ErrorActionPreference = 'Stop'
+      try {
+        Invoke-WebRequest -Method HEAD `
+                          -Uri https://download.agent.dev.azure.com/agent/4.252.0/vsts-agent-win-x64-4.252.0.zip `
+                          -TimeoutSec 5 `
+                          -UseBasicParsing `
+                          | Set-Variable response
+        if ($response.StatusCode -lt 400) {
+          Write-Host "Agent CDN is accessible. Status code: $($response.StatusCode)"
+        } else {
+          throw
+        }
+      } catch {
+        Write-Host "##vso[task.logissue type=warning]Can't access download.agent.dev.azure.com. Please make sure the access is not blocked by a firewall."
+        Write-Error "Agent CDN is inaccessible. Please make sure the access is not blocked by a firewall"
+        $response | Format-List
+      }
+    displayName: 'Test download.agent.dev.azure.com access'
