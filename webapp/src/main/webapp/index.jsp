@@ -1,6 +1,4 @@
-<h1> RahulShettyAcademy.com Learning</h1>
-<h2> Learn QA Automation tools + Devops Tools CI/CD pipelines in course from Scratch</h2>
-<h2> Good Luck and we are almost done with the course.Thankyou</h2>
-<h3> Sreedhar automate build and deploy.Thankyou</h3>
-<h4> new build.Thankyou</h4>
+<h1> Welcome to Olympiad finals</h1>
+<h2> This is from Zero fault crew </h2>
+<h3> Good Luck and all the best for finals</h3>
 
